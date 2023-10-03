@@ -16,8 +16,6 @@ RPC_PASSWORD: str = config("RPC_PASSWORD", default="")
 
 
 def issue(argv):
-    rpc_password = 'nestor'
-
     NAME = str(argv[1])
     TICKER = str(argv[2])
     DOMAIN = str(argv[3])
