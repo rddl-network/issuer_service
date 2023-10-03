@@ -16,7 +16,7 @@ ISSUANCE_DOMAIN: str = config("ISSUANCE_DOMAIN", default="assets.rddl.io")
 
 def issue_machine_nft(argv):
     NAME = str(argv[1])
-    MACHINE_PUBKEY = str(argv[2])
+    MACHINE_ADDR = str(argv[2])
     ASSET_AMOUNT = 1
     TOKEN_AMOUNT = 0
     PRECISION = 0
@@ -25,7 +25,7 @@ def issue_machine_nft(argv):
     FEERATE = 0.00001000
 
     try:
-        rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:%s/wallet/RDDLvalise"%(RPC_USER, RPC_PASSWORD, RPC_PORT))
+        rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:%s/wallet/%s"%(RPC_USER, RPC_PASSWORD, RPC_PORT, WALLET_NAME))
         NEWADDR = rpc_connection.getnewaddress("", "legacy")
         VALIDATEADDR = rpc_connection.getaddressinfo(NEWADDR)
         PUBKEY = VALIDATEADDR["pubkey"]
@@ -45,7 +45,7 @@ def issue_machine_nft(argv):
 
 
 
-    CONTRACT = f"{{\"entity\":{{\"domain\":\"{ISSUANCE_DOMAIN}\"}}, \"machine_key\":\"{MACHINE_PUBKEY}\", \"name\":\"{NAME}\", \"precision\":{PRECISION}, \"version\":{VERSION}}}"
+    CONTRACT = f"{{\"entity\":{{\"domain\":\"{ISSUANCE_DOMAIN}\"}}, \"machine_addr\":\"{MACHINE_ADDR}\", \"name\":\"{NAME}\", \"precision\":{PRECISION}, \"version\":{VERSION}}}"
     # print(CONTRACT)
 
     CONTRACT_SORTED=json.dumps(json.loads(CONTRACT), sort_keys=True, separators=(",",":"))
