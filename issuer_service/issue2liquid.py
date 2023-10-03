@@ -1,37 +1,28 @@
 from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 from decouple import config
-import base64
 import hashlib
 import json
-import time
 import six
 import sys
-import os
 
 
 RPC_PORT: int = config("RPC_PORT", default=18884, cast=int)
 RPC_USER: str = config("RPC_USER", default="")
 RPC_PASSWORD: str = config("RPC_PASSWORD", default="")
+WALLET_NAME: str = config("WALLET_NAME", default="")
+ISSUANCE_DOMAIN: str = config("ISSUANCE_DOMAIN", default="assets.rddl.io")
 
 
 
-def issue(argv):
+def issue_machine_nft(argv):
     NAME = str(argv[1])
-    TICKER = str(argv[2])
-    DOMAIN = str(argv[3])
-
-    ASSET_AMOUNT = float(argv[4])
-    TOKEN_AMOUNT = float(argv[5])
-
-    PRECISION = int(argv[6])
-    PLMNT_ISSUER = str(argv[7])
-    MACHINE_TYPE = int(argv[8])
+    MACHINE_PUBKEY = str(argv[2])
+    ASSET_AMOUNT = 1
+    TOKEN_AMOUNT = 0
+    PRECISION = 0
     VERSION = 0
 
     FEERATE = 0.00001000
-
-    IPLD_MHASH = 'QmQqNpuRGrdB1EBV2qj4Di6DKzRyukwwPCXXCtfyRwkVxW'
-    DEVICE_ID = ''
 
     try:
         rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:%s/wallet/RDDLvalise"%(RPC_USER, RPC_PASSWORD, RPC_PORT))
@@ -54,7 +45,7 @@ def issue(argv):
 
 
 
-    CONTRACT = f"{{\"entity\":{{\"domain\":\"{DOMAIN}\"}}, \"issuer_pubkey\":\"{PUBKEY}\", \"name\":\"{NAME}\", \"nft\":\"{IPLD_MHASH}\", \"precision\":{PRECISION}, \"ticker\":\"{TICKER}\", \"plmnt_issuer\":\"{PLMNT_ISSUER}\", \"machine_type\":{MACHINE_TYPE},\"version\":{VERSION}}}"
+    CONTRACT = f"{{\"entity\":{{\"domain\":\"{ISSUANCE_DOMAIN}\"}}, \"machine_key\":\"{MACHINE_PUBKEY}\", \"name\":\"{NAME}\", \"precision\":{PRECISION}, \"version\":{VERSION}}}"
     # print(CONTRACT)
 
     CONTRACT_SORTED=json.dumps(json.loads(CONTRACT), sort_keys=True, separators=(",",":"))
@@ -109,22 +100,12 @@ def issue(argv):
 def show(argv):
     n1 = str(argv[1])
     n2 = str(argv[2])
-    n3 = str(argv[3])
 
-
-    n4 = float(argv[4])
-    n5 = float(argv[5])
-
-    n6 = int(argv[6])
-    
-    n7 = str(argv[7])
-    n8 = int(argv[8])
-
-    return ( [n1, n2, n3, n4, n5, n6, n7, n8])
+    return ( [n1, n2])
 
 
 if __name__ == '__main__':
-    print ( issue(sys.argv))
+    print ( issue_machine_nft(sys.argv))
 
 
 """
