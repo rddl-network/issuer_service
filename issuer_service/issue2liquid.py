@@ -20,7 +20,6 @@ def issue_machine_nft(argv):
     NAME = str(argv[1])
     MACHINE_ADDR = str(argv[2])
     ASSET_AMOUNT = 0.00000001
-    TOKEN_AMOUNT = 1
     PRECISION = 0
     VERSION = 0
 
@@ -32,8 +31,7 @@ def issue_machine_nft(argv):
         VALIDATEADDR = rpc_connection.getaddressinfo(NEWADDR)
         PUBKEY = VALIDATEADDR["pubkey"]
         ASSET_ADDR = NEWADDR
-        NEWADDR = rpc_connection.getnewaddress("WRAPPEDtoken", "legacy")
-        TOKEN_ADDR = NEWADDR
+
 
     except JSONRPCException as json_exception:
         print("A JSON RPX exception occured: " + str(json_exception))
@@ -69,7 +67,7 @@ def issue_machine_nft(argv):
     HEXFRT = FRT["hex"]
     #print(HEXFRT)
     #RIA = rpc_connection.rawissueasset(HEXFRT, [{"asset_amount":ASSET_AMOUNT,
-    RIA = rpc_connection.rawissueasset(HEXFRT, [{"asset_amount":ASSET_AMOUNT, "asset_address":ASSET_ADDR, "token_amount":TOKEN_AMOUNT, "token_address":TOKEN_ADDR, "blind":False, "contract_hash":CONTRACT_HASH_REV,}])
+    RIA = rpc_connection.rawissueasset(HEXFRT, [{"asset_amount":ASSET_AMOUNT, "asset_address":ASSET_ADDR, "blind":False, "contract_hash":CONTRACT_HASH_REV}])
     # print(RIA)
 
     HEXRIA = RIA[0]["hex"]
