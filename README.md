@@ -16,11 +16,13 @@ poetry install
 
 issue2liquid expects the following variables to be set:
 ```
-RPC_PORT=
+RPC_HOST=localhost              # default
+RPC_PORT=18884                  # default
 RPC_USER=
 RPC_PASSWORD=
+RPC_PROTOCO=http                # default
 WALLET_NAME=
-ISSUANCE_DOMAIN=assets.rddl.io #(default)
+ISSUANCE_DOMAIN=assets.rddl.io  #(default)
 ```
 These can be set within the ```.env``` file (an example env.example file is given) or as environment variables.
 
