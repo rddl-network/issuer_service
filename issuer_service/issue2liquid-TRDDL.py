@@ -17,7 +17,7 @@ ISSUANCE_DOMAIN: str = config("ISSUANCE_DOMAIN", default="lab.r3c.network")
 def issue(argv):
     NAME = "RDDL Testnet Token"
     TICKER = "TRDDL"
-    DOMAIN = "lab.r3c.network""
+    DOMAIN = "lab.r3c.network"
 
     ASSET_AMOUNT = 998.69
     TOKEN_AMOUNT = 1.0
