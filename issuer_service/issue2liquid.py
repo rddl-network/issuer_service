@@ -38,14 +38,7 @@ def issue_machine_nft(argv):
     except Exception as general_exception:
         print("An exception occured: " + str(general_exception))
 
-    '''print(VALIDATEADDR)
-    print(PUBKEY)
-    print(ASSET_ADDR)
-    print(TOKEN_ADDR)'''
-
-
-
-    CONTRACT = f"{{\"entity\":{{\"domain\":\"{ISSUANCE_DOMAIN}\"}}, \"machine_addr\":\"{MACHINE_ADDR}\", \"name\":\"{NAME}\", \"precision\":{PRECISION}, \"version\":{VERSION}}}"
+    CONTRACT = f"{{\"entity\":{{\"domain\":\"{ISSUANCE_DOMAIN}\"}}, \"issuer_pubkey\":\"{PUBKEY}\", \"machine_addr\":\"{MACHINE_ADDR}\", \"name\":\"{NAME}\", \"precision\":{PRECISION}, \"version\":{VERSION}}}"
     # print(CONTRACT)
 
     CONTRACT_SORTED=json.dumps(json.loads(CONTRACT), sort_keys=True, separators=(",",":"))
